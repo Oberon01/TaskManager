@@ -13,6 +13,8 @@ public sealed class UpdateTaskCommandHandler : IRequestHandler<UpdateTaskCommand
         _unitOfWork = unitOfWork;
         _publisher = publisher;
     }
+
+    // @TODO: Consider adding validation for the input data (e.g., title length, due date in the future) before updating the task.
     public async Task Handle(UpdateTaskCommand request, CancellationToken cancellationToken)
     {
         var taskItem = await _unitOfWork.Tasks.GetByIdAsync(request.Id, cancellationToken)

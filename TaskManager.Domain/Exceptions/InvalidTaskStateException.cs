@@ -1,19 +1,22 @@
-﻿namespace TaskManager.Domain.Exceptions;
+﻿using TaskManager.Domain.Enums;
 
-// Custom exception for invalid task state transitions. This exception is thrown when an action is attempted on a task that is not in a valid state for that action.
+namespace TaskManager.Domain.Exceptions;
+
+// Custom exception for handling invalid state transitions of a task. This exception is thrown when an attempt is made to change a task's state to an invalid new state based on its current state.
 public sealed class InvalidTaskStateException : Exception
 {
+    // Properties to hold the task ID, the new state that was attempted, and the current state of the task. These properties provide context for the exception and can be used for logging or debugging purposes.
     public Guid TaskId { get; }
-    public string AttemptedAction { get; }
-    public string CurrentState { get; }
+    public Status NewState { get; }
+    public Status CurrentState { get; }
 
-    // Constructor that initializes the exception with the task ID, current state, and attempted action. The message is formatted to provide clear information about the error.
-    public InvalidTaskStateException(Guid taskId, string currentState, string attemptedAction)
-        : base($"Cannot perform '{attemptedAction}' on task with ID '{taskId}' in state '{currentState}'.")
+    // Constructor that initializes the exception with the task ID, current state, and new state. The message is formatted to indicate the invalid state transition.
+    public InvalidTaskStateException(Guid taskId, Status currentState, Status newState)
+        : base($"Cannot transition from {currentState} to {newState}.")
     {
         TaskId = taskId;
-        AttemptedAction = attemptedAction.ToLowerInvariant();
-        CurrentState = currentState.ToLowerInvariant();
+        NewState = newState;
+        CurrentState = currentState;
     }
 
 }

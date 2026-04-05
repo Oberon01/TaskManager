@@ -22,9 +22,6 @@ public sealed class CompleteTaskCommandHandler : IRequestHandler<CompleteTaskCom
         var taskItem = await _unitOfWork.Tasks.GetByIdAsync(request.Id, cancellationToken)
             ?? throw new TaskNotFoundException(request.Id);
 
-        if (taskItem.Status == Status.Completed)
-            throw new TaskAlreadyCompletedException(request.Id);
-
         taskItem.MarkAsCompleted();
 
         await _unitOfWork.Tasks.UpdateAsync(taskItem, cancellationToken);

@@ -2,11 +2,11 @@
 
 public abstract class Entity
 {
-    private readonly List<object> _domainEvents = new List<object>();
+    private readonly List<IDomainEvent> _domainEvents = new List<IDomainEvent>();
 
-    public IReadOnlyCollection<object> DomainEvents => _domainEvents.AsReadOnly();
+    public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
-    protected void RaiseDomainEvent(object domainEvent) => _domainEvents.Add(domainEvent);
+    protected void RaiseDomainEvent(IDomainEvent domainEvent) => _domainEvents.Add(domainEvent);
 
     public void ClearDomainEvents() => _domainEvents.Clear();
 }

@@ -2,7 +2,7 @@
 
 namespace TaskManager.Application.DTOs;
 
-public sealed class TaskItemDTO
+public sealed class TaskItemDto
 {
     public Guid Id { get; init; }
     public string Title { get; init; }

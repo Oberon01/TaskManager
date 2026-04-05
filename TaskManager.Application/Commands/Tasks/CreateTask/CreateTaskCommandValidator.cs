@@ -6,6 +6,7 @@ public sealed class CreateTaskCommandValidator : AbstractValidator<CreateTaskCom
 {
     public CreateTaskCommandValidator()
     {
+        // @TODO: Ensure creation rejects past due dates
         RuleFor(x => x.Title)
             .NotEmpty()
             .WithMessage("Title is required.")
